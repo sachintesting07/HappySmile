@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HappySmile · Instant enquiry response (mockup)</title>
+<style>
+:root{
+  --ink:#14201f;--muted:#5c6b69;--line:#dfe6e4;--bg:#f4f7f6;--card:#fff;
+  --brand:#0f766e;--brand-d:#0b5a54;--brand-l:#e1f3f0;
+  --amber:#92400e;--amber-l:#fef3c7;--red:#b91c1c;--red-l:#fee2e2;
+  --blue:#1d4ed8;--blue-l:#e0ebff;--green:#166534;--green-l:#dcfce7;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:15px;line-height:1.45}
+button,input,select,textarea{font-family:inherit}
+
+/* top bar */
+.top{background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:24px;padding:10px 24px;position:sticky;top:0;z-index:20;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:17px;color:var(--brand-d)}
+.logo i{width:26px;height:26px;border-radius:8px;background:var(--brand);display:inline-block;position:relative}
+.logo i:after{content:"";position:absolute;left:7px;top:9px;width:12px;height:6px;border-bottom:2.5px solid #fff;border-radius:0 0 12px 12px}
+.tabs{display:flex;gap:6px}
+.tabs button{border:0;background:transparent;padding:8px 14px;border-radius:999px;font-size:14px;font-weight:600;color:var(--muted);cursor:pointer}
+.tabs button.on{background:var(--brand-l);color:var(--brand-d)}
+.tag{margin-left:auto;font-size:12px;color:var(--muted)}
+section.screen{display:none}
+section.screen.on{display:block}
+
+/* ============ SCREEN 1 ============ */
+.s1{max-width:1080px;margin:0 auto;padding:28px 24px 48px;display:grid;grid-template-columns:minmax(0,1fr) 392px;gap:40px;align-items:start}
+.s1 h1{font-size:24px;margin:0 0 6px;letter-spacing:-.01em}
+.s1 .intro{color:var(--muted);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:14px}
+.card h3{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.web{display:flex;gap:10px;align-items:flex-start;background:var(--green-l);border-color:#bbf7d0}
+.web b{color:var(--green)}
+.lbl{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:0 0 6px}
+.seg{display:inline-flex;background:#e6ecea;border-radius:999px;padding:3px;margin-bottom:14px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:8px 14px;border-radius:999px;font-weight:600;font-size:13.5px;color:var(--muted);cursor:pointer}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.card ul{margin:0;padding-left:18px}
+.card li{margin:5px 0}
+.replay{border:1px solid var(--line);background:#fff;border-radius:10px;padding:8px 14px;font-weight:600;cursor:pointer;color:var(--brand-d)}
+.replay:hover{background:var(--brand-l)}
+.hint{font-size:13px;color:var(--muted);margin-top:8px}
+
+/* phone */
+.phone-wrap{display:flex;justify-content:center;position:sticky;top:76px}
+.phone{width:372px;height:min(720px,calc(100vh - 100px));min-height:560px;border-radius:40px;background:#16191a;padding:11px;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.wa{position:relative;width:100%;height:100%;border-radius:30px;overflow:hidden;background:#efeae2;display:flex;flex-direction:column}
+.status{position:absolute;top:0;left:0;right:0;height:26px;display:flex;justify-content:space-between;align-items:center;padding:0 18px;color:#fff;font-size:12px;font-weight:600;z-index:3}
+.wa-head{background:#075e54;color:#fff;padding:30px 12px 10px;display:flex;gap:10px;align-items:center;flex-shrink:0}
+.av{width:36px;height:36px;border-radius:50%;background:#fff;display:grid;place-items:center;flex-shrink:0}
+.av i{width:20px;height:20px;border-radius:6px;background:var(--brand);position:relative;display:block}
+.av i:after{content:"";position:absolute;left:5px;top:7px;width:10px;height:5px;border-bottom:2px solid #fff;border-radius:0 0 10px 10px}
+.wa-head b{display:block;font-size:15px;line-height:1.2}
+.wa-head small{opacity:.85;font-size:11.5px}
+#chat{flex:1;min-height:0;overflow-y:auto;padding:10px 10px 14px;display:flex;flex-direction:column;scroll-behavior:auto}
+#chat>*{flex-shrink:0}
+.day{align-self:center;background:#fff;color:#54656f;font-size:11px;padding:3px 10px;border-radius:7px;margin:4px 0 8px;box-shadow:0 1px 1px rgba(0,0,0,.06)}
+.b{max-width:84%;padding:7px 9px 4px;border-radius:8px;background:#fff;margin:3px 0;font-size:14px;line-height:1.35;box-shadow:0 1px 1px rgba(0,0,0,.08);align-self:flex-start;animation:pop .18s ease-out}
+.b.me{background:#d9fdd3;align-self:flex-end}
+.b .time{display:block;text-align:right;font-size:10px;color:#667781;margin-top:1px}
+.typing{display:flex;gap:4px;padding:11px 12px}
+.typing span{width:6px;height:6px;border-radius:50%;background:#9aa6ab;animation:blink 1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,60%,100%{opacity:.3}30%{opacity:1}}
+@keyframes pop{from{transform:translateY(6px);opacity:0}to{transform:none;opacity:1}}
+.qr{align-self:flex-start;width:84%;display:flex;flex-direction:column;gap:3px;margin:1px 0 4px;animation:pop .18s ease-out}
+.qr button{background:#fff;border:0;border-radius:8px;padding:9px 8px;color:#027eb5;font-weight:600;font-size:14px;cursor:pointer;box-shadow:0 1px 1px rgba(0,0,0,.1)}
+.qr button:hover{background:#f3f9fc}
+.list{align-self:flex-start;width:84%;background:#fff;border-radius:8px;box-shadow:0 1px 1px rgba(0,0,0,.1);overflow:hidden;margin:2px 0 4px;animation:pop .18s ease-out}
+.list h4{margin:0;padding:9px 10px;font-size:13px;color:#54656f;border-bottom:1px solid #eef1f2}
+.list button{display:flex;width:100%;text-align:left;align-items:center;gap:9px;border:0;background:#fff;padding:10px;font-size:14px;cursor:pointer;border-bottom:1px solid #f1f4f5}
+.list button:last-child{border-bottom:0}
+.list button:hover{background:#f3f9fc}
+.list button:before{content:"";width:14px;height:14px;border:2px solid #9aa6ab;border-radius:50%;flex-shrink:0}
+.callcard{align-self:flex-start;width:84%;background:#fff;border-radius:10px;padding:10px;box-shadow:0 1px 2px rgba(0,0,0,.12);margin:4px 0;animation:pop .18s ease-out}
+.callcard .row{display:flex;align-items:center;gap:10px}
+.callcard .ring{width:38px;height:38px;border-radius:50%;background:#25d366;display:grid;place-items:center;color:#fff;font-size:18px;flex-shrink:0}
+.callcard.ringing .ring{animation:pulse 1s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}100%{box-shadow:0 0 0 14px rgba(37,211,102,0)}}
+.callcard b{display:block;font-size:14px}
+.callcard small{color:#667781;font-size:12px}
+.callcard button{margin-top:9px;width:100%;border:0;border-radius:8px;background:#25d366;color:#fff;font-weight:700;padding:9px;cursor:pointer}
+.callcard.done .ring{background:#9aa6ab}
+.chipbar{background:#f0f2f5;padding:7px 10px 0;display:none;gap:6px;flex-shrink:0;border-top:1px solid #e3e7ea}
+.chipbar.on{display:flex}
+.chipbar button{border:1px solid #cfd8dc;background:#fff;border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:#027eb5;cursor:pointer;display:none}
+.chipbar button.on{display:inline-block}
+.chipbar button:hover{background:#f3f9fc}
+.inputbar{background:#f0f2f5;padding:8px 10px;display:flex;gap:8px;flex-shrink:0}
+.inputbar div{flex:1;background:#fff;border-radius:20px;padding:8px 14px;color:#8696a0;font-size:13.5px}
+.sheetbg{position:absolute;inset:0;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:.2s;z-index:5}
+.sheetbg.open{opacity:1;pointer-events:auto}
+.sheet{position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:18px 18px 0 0;padding:16px;transform:translateY(105%);transition:transform .25s;z-index:6}
+.sheet.open{transform:none}
+.sheet h4{margin:0 0 12px;font-size:16px}
+.sheet label{display:block;font-size:12px;color:#54656f;margin:10px 0 4px;font-weight:600}
+.sheet input,.sheet select,.sheet textarea{width:100%;padding:9px 10px;border:1px solid #cfd8dc;border-radius:8px;font:inherit;font-size:14px}
+.sheet textarea{height:56px;resize:none}
+.sheet .go{margin-top:14px;width:100%;border:0;border-radius:10px;background:#008069;color:#fff;font-weight:700;padding:11px;font-size:15px;cursor:pointer}
+
+/* ============ SCREEN 2 ============ */
+.s2{max-width:1320px;margin:0 auto;padding:22px 24px 40px}
+.s2head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.s2head h1{font-size:22px;margin:0}
+.s2head p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.hbtns{display:flex;gap:14px;align-items:center}
+.lnk{border:0;background:none;color:var(--muted);text-decoration:underline;cursor:pointer;font-size:13px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:14px}
+.toolbar input[type=search]{flex:1 1 200px;min-width:170px;border:1px solid var(--line);border-radius:8px;padding:7px 10px;font-size:14px}
+.toolbar select{border:1px solid var(--line);border-radius:8px;padding:7px 8px;font-size:13px;background:#fff;max-width:160px}
+.toolbar label.chk{display:flex;gap:6px;align-items:center;font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
+.grid2{display:grid;grid-template-columns:440px minmax(0,1fr);gap:18px;align-items:start}
+.panel{background:#fff;border:1px solid var(--line);border-radius:14px}
+.filters{display:flex;gap:6px;align-items:center;padding:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.filters button.t{border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 11px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer}
+.filters button.t.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.filters button.t span{opacity:.75;margin-left:3px}
+#list{max-height:calc(100vh - 290px);min-height:200px;overflow-y:auto}
+.lead{display:flex;gap:11px;padding:12px;border-bottom:1px solid #eef2f1;cursor:pointer;border-left:4px solid transparent}
+.lead:hover{background:#f8fbfa}
+.lead.sel{background:var(--brand-l)}
+.lead.lv-amber{border-left-color:#f59e0b}.lead.lv-red{border-left-color:#dc2626}
+.lead .ini{width:38px;height:38px;border-radius:50%;background:#d7e9e6;color:var(--brand-d);display:grid;place-items:center;font-weight:700;flex-shrink:0}
+.lead .mid{flex:1;min-width:0}
+.lead .nm{display:flex;gap:6px;align-items:center;font-weight:700}
+.lead .sub{font-size:13px;color:var(--muted);margin-top:1px}
+.lead .st{font-size:13px;margin-top:4px}
+.lead .tm{font-size:12px;font-weight:700;white-space:nowrap;color:var(--muted);text-align:right}
+.lead .tm.amber{color:#b45309}.lead .tm.red{color:var(--red)}
+.chip{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px;vertical-align:middle}
+.c-urgent,.c-human{background:var(--red-l);color:var(--red)}
+.c-unreached{background:var(--amber-l);color:var(--amber)}
+.c-confirm{background:var(--blue-l);color:var(--blue)}
+.c-assistant{background:var(--brand-l);color:var(--brand-d)}
+.c-booked{background:var(--green-l);color:var(--green)}
+.empty{padding:40px 20px;text-align:center;color:var(--muted)}
+.detail{padding:20px 22px}
+.detail h2{margin:0;font-size:21px}
+.detail .meta{color:var(--muted);font-size:14px;margin:3px 0 14px}
+.next{background:var(--brand-l);border-radius:12px;padding:12px 14px;margin-bottom:16px}
+.next small{display:block;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:11px;color:var(--brand-d);margin-bottom:3px}
+.appt{background:var(--blue-l);border-radius:12px;padding:12px 14px;margin-bottom:16px}
+.appt small{display:block;font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:11px;color:var(--blue);margin-bottom:3px}
+.appt b{font-size:17px}
+.appt.ok{background:var(--green-l)}.appt.ok small{color:var(--green)}
+.acts{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 15px;font-weight:700;font-size:14px;cursor:pointer}
+.btn:hover{background:#f4f7f6}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.pri:hover{background:var(--brand-d)}
+.btn.danger{color:var(--red);border-color:#f3c3c3}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.sec{margin:16px 0 6px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:700}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.facts div{background:#f6f9f8;border-radius:10px;padding:8px 11px;font-size:14px}
+.facts small{display:block;color:var(--muted);font-size:11.5px}
+.notes{background:#fffbea;border:1px solid #f3e6a6;border-radius:10px;padding:8px 11px;font-size:14px;white-space:pre-wrap}
+.tr{display:flex;flex-direction:column;gap:6px}
+.tr div{max-width:88%;padding:8px 11px;border-radius:10px;font-size:14px;background:#f1f4f3}
+.tr div small{display:block;font-size:11px;color:var(--muted);font-weight:700;margin-bottom:1px}
+.tr .p{align-self:flex-end;background:#e6f5e9}
+.tr .c{align-self:center;background:#fff;border:1px dashed var(--line);color:var(--muted);font-size:13px;max-width:96%}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(30px);background:#14201f;color:#fff;padding:11px 18px;border-radius:10px;font-size:14px;opacity:0;transition:.25s;z-index:80;max-width:90vw}
+.toast.on{opacity:1;transform:translateX(-50%)}
+
+/* modal */
+.modalbg{position:fixed;inset:0;background:rgba(10,20,19,.45);display:none;align-items:flex-start;justify-content:center;padding:50px 16px;overflow:auto;z-index:60}
+.modalbg.on{display:flex}
+.modal{background:#fff;border-radius:16px;width:520px;max-width:100%;padding:20px 22px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal h3{margin:0 0 10px;font-size:18px}
+.modal label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin:12px 0 4px;text-transform:uppercase;letter-spacing:.05em}
+.modal label.chk{display:flex;gap:8px;align-items:center;text-transform:none;letter-spacing:0;font-size:14px;color:var(--ink);font-weight:600}
+.modal input[type=text],.modal input[type=tel],.modal select,.modal textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px;background:#fff}
+.modal textarea{height:64px;resize:vertical}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mnote{margin:0 0 6px;color:var(--muted);font-size:13px}
+.mact{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.slots{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.slots button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 4px;font-size:13px;font-weight:600;cursor:pointer}
+.slots button:hover:not(:disabled){border-color:var(--brand)}
+.slots button.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+.slots button:disabled{background:#f3f5f5;color:#a3adab;text-decoration:line-through;cursor:not-allowed}
+
+@media(max-width:1000px){
+  .s1{grid-template-columns:1fr}
+  .phone-wrap{position:static;order:-1}
+  .grid2{grid-template-columns:1fr}
+  #list{max-height:none}
+}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="logo"><i></i>HappySmile</div>
+  <div class="tabs">
+    <button id="tab1" class="on">1 · Patient moment</button>
+    <button id="tab2">2 · Front-desk queue</button>
+  </div>
+  <div class="tag">Mockup · all names and data are made up</div>
+</div>
+
+<!-- ================= SCREEN 1 ================= -->
+<section class="screen on" id="screen1">
+  <div class="s1">
+    <div>
+      <h1>The moment someone asks to be contacted</h1>
+      <p class="intro">Everything after the enquiry happens in one WhatsApp thread: notice, options, qualifying questions, slot, details, and later changes. Try it on the phone &rarr;</p>
+
+      <div class="card web">
+        <div style="font-size:22px">&#10003;</div>
+        <div><b>On the website, nothing more.</b><br>The enquiry form asks for name, number and treatment. After submitting, the page only says: &ldquo;Thanks, Priya. We&rsquo;ve sent you a WhatsApp message &mdash; please check it.&rdquo; No chatbot, booking or extra forms on the site.</div>
+      </div>
+
+      <div class="lbl">Treatment chosen on the website form</div>
+      <div class="seg" id="segT">
+        <button data-t="Braces" class="on">Braces</button>
+        <button data-t="Whitening">Whitening</button>
+        <button data-t="Implants">Implants</button>
+        <button data-t="Check-up / other">Check-up / other</button>
+      </div>
+
+      <div class="lbl">When the enquiry arrives</div>
+      <div class="seg" id="seg">
+        <button data-s="work" class="on">Working hours &middot; 9 AM&ndash;8 PM</button>
+        <button data-s="after">After hours &middot; 8 PM&ndash;9 AM</button>
+      </div>
+
+      <div class="card" id="scenCard"></div>
+
+      <div class="card">
+        <h3>Rules that hold in both</h3>
+        <ul>
+          <li>The treatment comes from the form, not the assistant. It is confirmed in chat, and the questions adapt to it.</li>
+          <li>The assistant always says it is a virtual assistant.</li>
+          <li>Anything clinical (pain, swelling), pricing or discounts goes to a human, with the conversation attached.</li>
+          <li>A call is never placed at night unless the patient asks for it.</li>
+          <li>Slots are real and shown as a list. After booking, the patient can change the time or clinic, or cancel.</li>
+          <li><b>Menu</b> stays available after every path: raise a new enquiry for any treatment, manage the appointment, or talk to someone. Nobody has to go back to the website form.</li>
+          <li>Every path ends in the front-desk queue (Screen 2).</li>
+        </ul>
+      </div>
+      <button class="replay" id="replay">&#8635; Restart this conversation</button>
+      <div class="hint">Tap the blue buttons and list options inside the phone. Try each branch, including &ldquo;It&rsquo;s painful / urgent&rdquo;, &ldquo;Call me instead&rdquo; and Menu.</div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="wa">
+          <div class="status"><span id="clock">2:14 PM</span><span>5G &#9646;&#9646;&#9646;</span></div>
+          <div class="wa-head">
+            <div class="av"><i></i></div>
+            <div><b>HappySmile Dental</b><small>Business account &middot; virtual assistant</small></div>
+          </div>
+          <div id="chat"></div>
+          <div class="chipbar" id="chipbar">
+            <button id="callChip">&#128222; Call me instead</button>
+            <button id="menuChip">&#9776; Menu</button>
+          </div>
+          <div class="inputbar"><div>Message</div></div>
+          <div class="sheetbg" id="sheetbg"></div>
+          <div class="sheet" id="sheet">
+            <h4>Confirm your details</h4>
+            <label>Full name</label><input id="f_name" value="Priya Sharma">
+            <label>Who is the appointment for?</label>
+            <select id="f_for"><option>Myself</option><option>My child</option><option>A family member</option></select>
+            <label>Have you visited HappySmile before?</label>
+            <select id="f_visit"><option>First visit</option><option>Visited before</option></select>
+            <label>Anything the doctor should know? (optional)</label><textarea id="f_note" placeholder="e.g. earlier treatment, allergies"></textarea>
+            <button class="go" id="f_go">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SCREEN 2 ================= -->
+<section class="screen" id="screen2">
+  <div class="s2">
+    <div class="s2head">
+      <div>
+        <h1>Enquiries &amp; appointments</h1>
+        <p>Most urgent first. Open anyone to see what the assistant learned, then call, book, reschedule or edit.</p>
+      </div>
+      <div class="hbtns">
+        <button class="lnk" id="resetQ">Reset demo data</button>
+        <button class="btn pri" id="newBtn">+ New enquiry / booking</button>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <input type="search" id="fq" placeholder="Search name, phone, treatment">
+      <select id="fclinic"><option value="all">All clinics</option></select>
+      <select id="ftreat"><option value="all">All treatments</option></select>
+      <select id="furg"><option value="all">Any urgency</option></select>
+      <select id="fsrc"><option value="all">Any source</option></select>
+      <select id="fappt">
+        <option value="all">Any appt status</option>
+        <option value="none">No appointment</option>
+        <option value="pending">Pending confirmation</option>
+        <option value="confirmed">Confirmed</option>
+      </select>
+      <select id="fdate">
+        <option value="all">Any appt date</option>
+        <option value="today">Today</option>
+        <option value="tomorrow">Tomorrow</option>
+        <option value="week">Next 7 days</option>
+      </select>
+      <label class="chk"><input type="checkbox" id="fover"> Waiting 30+ min</label>
+      <button class="lnk" id="fclear">Clear filters</button>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <div class="filters" id="filters"></div>
+        <div id="list"></div>
+      </div>
+      <div class="panel" id="detail"></div>
+    </div>
+  </div>
+</section>
+
+<div class="modalbg" id="modal"><div class="modal" id="modalBody"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------- shared date helpers ---------- */
+const NOW=new Date();
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const dateOff=off=>new Date(NOW.getFullYear(),NOW.getMonth(),NOW.getDate()+off);
+const dayFull=off=>{const d=dateOff(off);return DOW[d.getDay()]+', '+d.getDate()+' '+MON[d.getMonth()];};
+const dayLabel=off=>off===0?'Today':off===1?'Tomorrow':dayFull(off);
+const apptText=a=>dayLabel(a.off)+', '+a.time;
+const nextDow=dow=>{for(let i=1;i<=7;i++) if(dateOff(i).getDay()===dow) return i;};
+const nextWeekdays=n=>{const o=[];for(let i=1;o.length<n;i++){const g=dateOff(i).getDay();if(g>=1&&g<=5)o.push(i);}return o;};
+const CLINICS=['Indiranagar','Koramangala','Whitefield'];
+
+/* ---------- tabs ---------- */
+function showTab(n){
+  $('#screen1').classList.toggle('on',n===1);
+  $('#screen2').classList.toggle('on',n===2);
+  $('#tab1').classList.toggle('on',n===1);
+  $('#tab2').classList.toggle('on',n===2);
+  window.scrollTo(0,0);
+  if(n===2) renderAll();
+}
+$('#tab1').onclick=()=>showTab(1);
+$('#tab2').onclick=()=>showTab(2);
+
+/* =====================================================
+   SCREEN 1: WhatsApp conversation engine
+   ===================================================== */
+const CANCEL='__cancel__';
+let scenario='work';
+let RUN=0, CLOCK=0, NMSG=0;
+const TREAT=['Braces','Whitening','Implants','Check-up / other'];
+let ENQ_T='Braces';                 /* what the website form captured */
+let ST={treatment:'Braces',clinic:null,appt:null};   /* conversation state */
+const treatWord=t=>t==='Check-up / other'?'a dental check-up':t.toLowerCase();
+const treatNoun=t=>t==='Check-up / other'?'check-up':t.toLowerCase();
+
+const SCEN={
+  work:{start:14*60+14,day:'Today',title:'Enquiry during working hours (9 AM–8 PM)',
+    bullets:[
+      'WhatsApp goes out within 2 minutes of the enquiry, naming the treatment from the form.',
+      'It tells the patient a call is coming and to pick up.',
+      'One alternative: <b>chat here instead</b>. Same questions, in text.',
+      'No answer? One retry, then the lead goes to the front-desk queue.'
+    ]},
+  after:{start:22*60+41,day:'Today',title:'Enquiry after hours (8 PM–9 AM)',
+    bullets:[
+      'WhatsApp goes out straight away, so the patient is acknowledged at once.',
+      'The patient picks: <b>call me now</b>, <b>call me tomorrow</b>, or <b>chat here</b>.',
+      'For tomorrow, the patient chooses the time window that suits them (9 AM–8 PM).',
+      'No reply? No call is placed at night; one gentle nudge the next morning.'
+    ]}
+};
+const CONCERN={
+ 'Braces':["Crooked or crowded teeth","Gaps between teeth","Bite problem (over / underbite)","Braces for my child","Not sure, I'd like advice"],
+ 'Whitening':["Stains (tea, coffee, smoking)","Teeth yellowing over time","For an upcoming event","Whitening for sensitive teeth","Not sure, I'd like advice"],
+ 'Implants':["One missing tooth","Several missing teeth","A tooth that can't be saved","Replacing dentures","Not sure, I'd like advice"],
+ 'Check-up / other':["Routine check-up and cleaning","Filling or root canal","Dental care for my child","Gum problem","Not sure, I'd like advice"]
+};
+const BUDGET={
+ 'Braces':["Under ₹30,000","₹30,000–60,000","Not sure yet"],
+ 'Whitening':["Under ₹8,000","₹8,000–15,000","Not sure yet"],
+ 'Implants':["Under ₹30,000 per tooth","₹30,000–50,000 per tooth","Not sure yet"],
+ 'Check-up / other':["Under ₹2,000","₹2,000–5,000","Not sure yet"]
+};
+const PREFS=["This weekend","Weekday evenings (after 5 PM)","Weekday daytime","I'm flexible"];
+function slotsFor(pref){
+  const sat=nextDow(6),sun=nextDow(0),wk=nextWeekdays(3),S=(off,time)=>({off,time});
+  if(pref===PREFS[0]) return [S(sat,'11:00 AM'),S(sat,'4:00 PM'),S(sun,'10:30 AM')];
+  if(pref===PREFS[1]) return [S(wk[0],'6:30 PM'),S(wk[1],'7:00 PM'),S(wk[2],'6:00 PM')];
+  if(pref===PREFS[2]) return [S(wk[0],'11:00 AM'),S(wk[1],'2:00 PM'),S(wk[2],'10:30 AM')];
+  return [S(sat,'11:00 AM'),S(wk[0],'6:30 PM'),S(wk[1],'11:00 AM')];
+}
+
+function fmtTime(m){
+  m=((m%1440)+1440)%1440;
+  let h=Math.floor(m/60),mm=m%60,ap=h>=12?'PM':'AM';
+  h=h%12||12;
+  return h+':'+String(mm).padStart(2,'0')+' '+ap;
+}
+function renderScenCard(){
+  const s=SCEN[scenario];
+  $('#scenCard').innerHTML='<h3>'+s.title+'</h3><ul>'+s.bullets.map(b=>'<li>'+b+'</li>').join('')+'</ul>';
+}
+function setChips(call,menu){
+  $('#callChip').classList.toggle('on',!!call);
+  $('#menuChip').classList.toggle('on',!!menu);
+  $('#chipbar').classList.toggle('on',!!(call||menu));
+}
+
+/* keep=true: cancel whatever is running but keep the chat on screen */
+function newRun(keep){
+  const id=++RUN;
+  const chat=$('#chat');
+  if(!keep){
+    chat.innerHTML=''; CLOCK=SCEN[scenario].start; NMSG=0; setChips(false,false);
+  }else{
+    $$('#chat .qr, #chat .list, #chat .typing').forEach(e=>e.remove());
+  }
+  closeSheet();
+  $('#clock').textContent=fmtTime(CLOCK);
+  const alive=()=>{ if(id!==RUN) throw CANCEL; };
+  const scroll=()=>{ chat.scrollTop=chat.scrollHeight; };
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms)).then(alive);
+  const stamp=()=>{ if(NMSG++%2===1) CLOCK++; $('#clock').textContent=fmtTime(CLOCK); return fmtTime(CLOCK); };
+  const add=(node)=>{ chat.appendChild(node); scroll(); requestAnimationFrame(scroll); return node; };
+  const mk=(cls,html)=>{ const d=document.createElement('div'); d.className=cls; d.innerHTML=html; return d; };
+  const api={};
+  if(!keep) add(mk('day',SCEN[scenario].day));
+
+  api.say=async(html,delay)=>{
+    const ty=add(mk('b typing','<span></span><span></span><span></span>'));
+    await sleep(delay??Math.min(1500,650+html.length*7));
+    ty.remove();
+    add(mk('b',html+'<span class="time">'+stamp()+'</span>'));
+    await sleep(120);
+  };
+  api.me=(text)=>{ add(mk('b me',text+'<span class="time">'+stamp()+' &#10003;&#10003;</span>')); };
+  api.choices=(labels)=>new Promise((res,rej)=>{
+    const box=mk('qr','');
+    labels.forEach(l=>{
+      const b=document.createElement('button'); b.textContent=l;
+      b.onclick=()=>{ if(id!==RUN) return rej(CANCEL); box.remove(); api.me(l); res(l); };
+      box.appendChild(b);
+    });
+    add(box);
+  });
+  api.listPick=(title,options)=>new Promise((res,rej)=>{
+    const box=mk('list','<h4>'+title+'</h4>');
+    options.forEach(o=>{
+      const b=document.createElement('button'); b.textContent=o;
+      b.onclick=()=>{ if(id!==RUN) return rej(CANCEL); box.remove(); api.me(o); res(o); };
+      box.appendChild(b);
+    });
+    add(box);
+  });
+  api.call=()=>new Promise((res,rej)=>{
+    const box=mk('callcard ringing',
+      '<div class="row"><div class="ring">&#128222;</div><div><b>HappySmile Helpdesk</b><small>Incoming voice call&hellip;</small></div></div><button>Pick up (demo)</button>');
+    const btn=$('button',box);
+    btn.onclick=async()=>{
+      try{
+        alive();
+        box.classList.remove('ringing');
+        $('small',box).textContent='On call…';
+        btn.remove();
+        await sleep(2200);
+        box.classList.add('done');
+        $('b',box).textContent='Voice call';
+        $('small',box).textContent='Call ended · 3 min 12 sec';
+        scroll(); res();
+      }catch(e){ rej(e); }
+    };
+    add(box);
+  });
+  api.form=()=>new Promise((res,rej)=>{
+    const box=mk('qr','');
+    const b=document.createElement('button'); b.textContent='Fill details';
+    box.appendChild(b);
+    b.onclick=()=>{
+      openSheet(()=>{ if(id!==RUN) return rej(CANCEL); box.remove(); api.me('Details submitted &#10003;'); res(); });
+    };
+    add(box);
+  });
+  return api;
+}
+
+/* bottom sheet (WhatsApp "flow" form) */
+let sheetCb=null;
+function openSheet(cb){ sheetCb=cb; $('#sheet').classList.add('open'); $('#sheetbg').classList.add('open'); }
+function closeSheet(){ sheetCb=null; $('#sheet').classList.remove('open'); $('#sheetbg').classList.remove('open'); }
+$('#f_go').onclick=()=>{ const cb=sheetCb; closeSheet(); if(cb) cb(); };
+$('#sheetbg').onclick=closeSheet;
+
+const caught=e=>{ if(e!==CANCEL) console.error(e); };
+const greeting=()=>"Hi Priya 👋 This is the <b>HappySmile</b> virtual assistant. Thanks for your enquiry about <b>"+treatWord(ENQ_T)+"</b>.";
+const idle=()=>setChips(false,true);
+
+/* ---------- booking pieces ---------- */
+async function bookSlot(r,clinic,slots,introHtml){
+  await r.say(introHtml);
+  const labels=slots.map(apptText);
+  const NONE="None of these suit me";
+  const pick=await r.listPick("Available slots · "+clinic,[...labels,NONE]);
+  if(pick===NONE){
+    await r.say("No problem. A team member will call you to find a time that works. They'll already know what you need.");
+    ST.appt=null; return false;
+  }
+  const s=slots[labels.indexOf(pick)];
+  ST.appt={off:s.off,time:s.time,clinic};
+  return true;
+}
+async function confirmedMsg(r){
+  await r.say("✅ You're pencilled in for <b>"+apptText(ST.appt)+"</b> at "+ST.appt.clinic+" ("+treatNoun(ST.treatment)+" consultation). Our front desk will confirm shortly and send a reminder the day before.");
+  await manage(r);
+}
+/* change / cancel loop, offered right after booking and under Menu → My appointment */
+async function manage(r){
+  idle();
+  while(ST.appt){
+    const c=await r.choices(["Change time","Change clinic","Cancel appointment"]);
+    if(c==="Change time"){
+      const ok=await bookSlot(r,ST.appt.clinic,slotsFor(PREFS[3]),"Sure. Here are the other available times at <b>"+ST.appt.clinic+"</b>:");
+      if(!ok) return idle();
+      await r.say("✅ Updated: <b>"+apptText(ST.appt)+"</b> at "+ST.appt.clinic+". Our front desk will confirm shortly.");
+    }else if(c==="Change clinic"){
+      await r.say("Which clinic would you prefer?");
+      const cl=await r.listPick("Choose a clinic",CLINICS);
+      const ok=await bookSlot(r,cl,slotsFor(PREFS[3]),"Here are the next available times at <b>"+cl+"</b>:");
+      if(!ok) return idle();
+      await r.say("✅ Updated: <b>"+apptText(ST.appt)+"</b> at "+ST.appt.clinic+". Our front desk will confirm shortly.");
+    }else{
+      await r.say("Are you sure you want to cancel <b>"+apptText(ST.appt)+"</b>?");
+      const k=await r.choices(["Yes, cancel it","Keep it"]);
+      if(k==="Keep it"){ await r.say("Great, it's still booked. 👍"); continue; }
+      const clinic=ST.appt.clinic; ST.appt=null;
+      await r.say("Your appointment is cancelled. Would you like to pick a new time?");
+      const n=await r.choices(["Pick a new time","Not now"]);
+      if(n==="Pick a new time"){
+        const ok=await bookSlot(r,clinic,slotsFor(PREFS[3]),"Here are the next available times at <b>"+clinic+"</b>:");
+        if(!ok) return idle();
+        await r.say("✅ Booked: <b>"+apptText(ST.appt)+"</b> at "+clinic+". Our front desk will confirm shortly.");
+        continue;
+      }
+      await r.say("No problem. Tap <b>Menu</b> whenever you need us. 😊");
+      return idle();
+    }
+  }
+  idle();
+}
+
+async function afterCall(r){
+  const clinic="Koramangala";
+  const ok=await bookSlot(r,clinic,slotsFor(PREFS[3]),
+    "Thanks for your time, Priya! 🙏 As we discussed, here are the next available slots at <b>"+clinic+"</b> for your <b>"+treatNoun(ST.treatment)+"</b> consultation:");
+  if(!ok) return idle();
+  await confirmedMsg(r);
+}
+
+async function callTomorrow(r){
+  let w;
+  while(true){
+    await r.say("Sure. Tomorrow we call between 9 AM and 8 PM. <b>When suits you best?</b>");
+    w=await r.listPick("Choose a time window",["9 AM – 11 AM","11 AM – 1 PM","1 PM – 3 PM","3 PM – 5 PM","5 PM – 8 PM"]);
+    await r.say("✅ Done. We'll call you tomorrow between <b>"+w+"</b>. I'll send a reminder here 30 minutes before.");
+    const k=await r.choices(["Looks good","Change time"]);
+    if(k==="Looks good") break;
+  }
+  await r.say("Great, talk to you tomorrow, Priya! 😊 Tap <b>Menu</b> if plans change.");
+  idle();
+}
+
+/* patient asked for a call (chip or menu) */
+async function callHandoff(r){
+  if(scenario==='after'){
+    await r.say("Of course. Would you like the call now, or at a time tomorrow?");
+    const c=await r.choices(["Call me now","Call me tomorrow"]);
+    if(c==="Call me tomorrow"){ await callTomorrow(r); return; }
+  }
+  await r.say("Of course! Our helpdesk will call you in about <b>2 minutes</b> 📞 I'll pass on what you've told me so far, so you won't need to repeat yourself.");
+  await r.call();
+  await afterCall(r);
+}
+
+/* ---------- the chat path ---------- */
+async function chatFlow(r,fromMenu){
+  setChips(true,false);
+  await r.say(fromMenu
+    ? "A few quick questions so we match you with the right doctor. Tap <b>Call me instead</b> if you'd rather talk."
+    : "Sure! A few quick questions so we match you with the right doctor. It takes about a minute. If you'd rather talk, tap <b>Call me instead</b> at any time.");
+
+  /* 0 · confirm treatment (it came from the website form) */
+  if(!fromMenu){
+    await r.say("I have your enquiry down for <b>"+treatWord(ST.treatment)+"</b>. Is that right?");
+    const ok=await r.choices(["Yes, that's right","Different treatment"]);
+    if(ok==="Different treatment"){
+      ST.treatment=await r.listPick("Which treatment?",TREAT);
+      await r.say("Thanks, I've updated it to <b>"+treatWord(ST.treatment)+"</b>.");
+    }
+  }
+
+  /* 1 · how soon */
+  await r.say("How soon are you looking to start?");
+  const urgency=await r.choices(["It's painful / urgent","Within 2 weeks","Just exploring"]);
+  if(urgency==="It's painful / urgent"){
+    await r.say("I'm sorry you're in discomfort. I won't guess about anything medical — I'm getting a team member to call you <b>right away</b>. You won't need to repeat yourself.");
+    return idle();
+  }
+
+  /* 2 · what is it about (depends on the treatment) */
+  await r.say("Thanks! <b>What would you like help with?</b>");
+  const concern=await r.listPick("What is it about?",CONCERN[ST.treatment]);
+  await r.say(concern.startsWith("Not sure")
+    ? "No problem. The doctor can look at this properly at a short consultation, which is the best way to find out."
+    : "Got it, I've noted <b>"+concern.toLowerCase()+"</b> for the doctor.");
+
+  /* 3 · budget */
+  await r.say("Roughly what budget feels comfortable? This only helps us suggest options. No commitment.");
+  await r.choices(BUDGET[ST.treatment]);
+
+  /* 4 · where */
+  await r.say("Which clinic is most convenient?");
+  const clinic=await r.listPick("Choose a clinic",CLINICS);
+
+  /* 5 · when, then real slots */
+  await r.say("And <b>when would you like to come in?</b>");
+  const pref=await r.listPick("Preferred time",PREFS);
+  const ok=await bookSlot(r,clinic,slotsFor(pref),"Here are the next available slots at <b>"+clinic+"</b>:");
+  if(!ok) return idle();
+
+  /* details form */
+  await r.say("Last step. Please confirm a few details:");
+  await r.form();
+  await confirmedMsg(r);
+}
+
+/* ---------- Menu: stays available once the conversation is over ---------- */
+function openMenu(){
+  const r=newRun(true);
+  setChips(false,false);
+  r.me("☰ Menu");
+  (async()=>{
+    await r.say("How can I help?",500);
+    const rows=["Raise a new enquiry"]; if(ST.appt) rows.push("My appointment"); rows.push("Talk to someone");
+    const c=await r.listPick("Menu",rows);
+    if(c==="Raise a new enquiry"){
+      await r.say("Sure! Which treatment are you interested in?");
+      ST.treatment=await r.listPick("Treatment",TREAT);
+      await r.say("Thanks! I've logged a new enquiry for <b>"+treatWord(ST.treatment)+"</b> on your number. No need to fill the website form again.");
+      await chatFlow(r,true);
+    }else if(c==="My appointment"){
+      await r.say("Your appointment: <b>"+apptText(ST.appt)+"</b> at "+ST.appt.clinic+" ("+treatNoun(ST.treatment)+"). It's pencilled in and our front desk will confirm it. What would you like to do?");
+      await manage(r);
+    }else{
+      await callHandoff(r);
+    }
+  })().catch(caught);
+}
+$('#menuChip').onclick=openMenu;
+
+function callInstead(){
+  const r=newRun(true);
+  setChips(false,false);
+  r.me("📞 Call me instead");
+  callHandoff(r).catch(caught);
+}
+$('#callChip').onclick=callInstead;
+
+/* ---------- scenario A: working hours ---------- */
+async function flowWork(r){
+  await r.say(greeting());
+  await r.say("Our helpdesk will call you in about <b>2 minutes</b>. <b>Please keep your phone handy and pick up</b> 📞");
+  await r.say("Prefer to text? You can chat with me here instead.",700);
+  const c=await r.choices(["Okay, I'll pick up","Chat here instead"]);
+  if(c==="Chat here instead"){ await chatFlow(r); return; }
+  await r.say("Perfect, calling shortly…",600);
+  await r.call();
+  await afterCall(r);
+}
+
+/* ---------- scenario B: after hours ---------- */
+async function flowAfter(r){
+  await r.say(greeting());
+  await r.say("Our clinics are closed now (open 9 AM–8 PM), but I can still help. How would you like to continue?");
+  const c=await r.choices(["Call me now","Call me tomorrow","Chat here"]);
+  if(c==="Chat here"){ await chatFlow(r); return; }
+  if(c==="Call me now"){
+    await r.say("No problem! Our helpdesk will call you in about <b>2 minutes</b> 📞",700);
+    await r.call();
+    await afterCall(r);
+    return;
+  }
+  await callTomorrow(r);
+}
+
+function start(){
+  ST={treatment:ENQ_T,clinic:null,appt:null};
+  const r=newRun(false);
+  (scenario==='work'?flowWork(r):flowAfter(r)).catch(caught);
+}
+$$('#seg button').forEach(b=>b.onclick=()=>{
+  scenario=b.dataset.s;
+  $$('#seg button').forEach(x=>x.classList.toggle('on',x===b));
+  renderScenCard(); start();
+});
+$$('#segT button').forEach(b=>b.onclick=()=>{
+  ENQ_T=b.dataset.t;
+  $$('#segT button').forEach(x=>x.classList.toggle('on',x===b));
+  start();
+});
+$('#replay').onclick=start;
+
+/* =====================================================
+   SCREEN 2: front-desk queue
+   ===================================================== */
+const TR2=['Braces','Aligners','Whitening','Implants','Check-up / other'];
+const URG={urgent:'Urgent',soon:'Within 2 weeks',exploring:'Just exploring'};
+const SRC=['Website form','WhatsApp','Phone call','Walk-in'];
+const TIMES=['10:00 AM','11:30 AM','1:00 PM','2:30 PM','4:00 PM','5:30 PM','7:00 PM'];
+const hash=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))>>>0;return h;};
+
+function seed(){
+  const sat=nextDow(6), fri=nextDow(5), wk=nextWeekdays(4);
+  return [
+ {id:1,name:'Rahul Mehta',phone:'+91 98•••• ••210',treatment:'Implants',clinic:'Indiranagar',urgency:'urgent',status:'human',source:'Website form',
+  statusText:'Escalated by assistant · reports pain',mins:4,
+  summary:'Dull pain on the lower left for 3 days and some swelling. Wants an implant consultation. The assistant gave no medical advice and stopped the chat.',
+  facts:{'How soon':'Painful / urgent','Visit':'Visited before','Budget':'Not asked (escalated)','Prefers':'Today if possible'},
+  next:'Call now. Offer today’s earliest slot at Indiranagar (4:00 PM is free).',
+  tr:[['b','Assistant · WhatsApp','How soon are you looking to start?'],['p','Rahul · WhatsApp','It’s painful / urgent'],['p','Rahul · WhatsApp','Pain on lower left side since 3 days, little swelling also'],['b','Assistant · WhatsApp','I’m sorry you’re in discomfort. I won’t guess about anything medical — I’m getting a team member to call you right away.']]},
+ {id:2,name:'Neha Kapoor',phone:'+91 99•••• ••845',treatment:'Braces',clinic:'Whitefield',urgency:'soon',status:'human',source:'Website form',
+  statusText:'Wants EMI options · for her 14-year-old',mins:41,
+  summary:'Enquiring for her 14-year-old daughter. Asked about EMI and whether braces suit that age. The assistant could not quote prices, so it handed over.',
+  facts:{'How soon':'Within 2 weeks','Visit':'First visit','Budget':'₹30,000–60,000','Prefers':'Weekend'},
+  next:'Call back, explain EMI options, and offer a weekend consultation with the orthodontist.',
+  tr:[['c','','Voice call · 2 min 40 sec'],['p','Neha · call','It’s for my daughter, she is 14. Is that too early? And can we pay in EMI?'],['b','Assistant · call','I can’t quote prices, so I’ll ask a colleague to call you with the options and the right doctor for her age.']]},
+ {id:3,name:'Kavita Joshi',phone:'+91 97•••• ••563',treatment:'Aligners',clinic:'Koramangala',urgency:'exploring',status:'unreached',source:'Website form',
+  statusText:'No answer after 2 attempts · WhatsApp read',mins:56,
+  summary:'Two call attempts (2 min and 35 min after the enquiry) went unanswered. She opened the WhatsApp message but has not replied.',
+  facts:{'How soon':'Not known','Visit':'Not known','Budget':'Not known','Prefers':'Evenings (from form)'},
+  next:'One human call after 6 PM. She read the message, so mention it and offer to chat on WhatsApp.',
+  tr:[['c','','Call attempt 1 · no answer'],['b','Assistant · WhatsApp','Sorry we missed you! Want to chat here instead, or shall we try again later?'],['c','','Call attempt 2 · no answer · message read, no reply']]},
+ {id:4,name:'Priya Sharma',phone:'+91 98•••• ••772',treatment:'Braces',clinic:'Koramangala',urgency:'soon',status:'confirm',source:'Website form',
+  mins:9,appt:{off:sat,time:'11:00 AM',clinic:'Koramangala'},
+  summary:'Spoke to the assistant for 3 minutes. First visit, comfortable with ₹30,000–60,000, prefers a Saturday morning. Slot is held and waiting for you.',
+  facts:{'How soon':'Within 2 weeks','Visit':'First visit','Budget':'₹30,000–60,000','Prefers':'Saturday morning'},
+  next:'Confirm the slot in the clinic calendar. Priya gets the WhatsApp confirmation automatically.',
+  tr:[['b','Assistant · call','Thanks for your time. Here are the next available slots at Koramangala.'],['p','Priya · call','Saturday 11 AM works.'],['c','','Call ended · 3 min 12 sec'],['b','Assistant · WhatsApp','Pencilled in. Our front desk will confirm shortly.']]},
+ {id:5,name:'Ankit Verma',phone:'+91 96•••• ••118',treatment:'Whitening',clinic:'Indiranagar',urgency:'exploring',status:'confirm',source:'Website form',
+  mins:22,appt:{off:fri,time:'5:30 PM',clinic:'Indiranagar'},
+  summary:'Chatted on WhatsApp. Wants whitening before a wedding in 3 weeks. Picked a Friday evening and filled the details form.',
+  facts:{'How soon':'Within 2 weeks','Visit':'Visited before','Budget':'Under ₹8,000','Prefers':'Friday evening'},
+  next:'Confirm the slot. Visited before, so no new-patient forms are needed.',
+  tr:[['b','Assistant · WhatsApp','Which clinic is most convenient?'],['p','Ankit · WhatsApp','Indiranagar'],['b','Assistant · WhatsApp','Here are the next available slots…'],['p','Ankit · WhatsApp','Friday, 5:30 PM'],['p','Ankit · WhatsApp','Details submitted ✓']]},
+ {id:6,name:'Farhan Ali',phone:'+91 95•••• ••330',treatment:'Braces',clinic:'Indiranagar',urgency:'soon',status:'assistant',source:'Website form',
+  statusText:'Assistant is on a call now',mins:3,
+  summary:'Enquired 3 minutes ago and picked up the assistant’s call. Nothing needed from you yet.',
+  facts:{'How soon':'In progress','Visit':'In progress','Budget':'In progress','Prefers':'In progress'},
+  next:'No action needed. You’ll be alerted if the assistant hands over.',
+  tr:[['c','','Call in progress…']]},
+ {id:7,name:'Sandeep Rao',phone:'+91 94•••• ••907',treatment:'Implants',clinic:'Whitefield',urgency:'exploring',status:'assistant',source:'Website form',
+  statusText:'Chatting on WhatsApp · 3 of 5 questions',mins:6,
+  summary:'Chose to chat instead of a call. Has answered treatment, how soon and what it is about. Budget and slot are pending.',
+  facts:{'How soon':'Just exploring','Visit':'Not asked yet','Budget':'Pending','Prefers':'Pending'},
+  next:'No action needed. The assistant nudges him in 15 minutes if he goes quiet, then hands over.',
+  tr:[['b','Assistant · WhatsApp','I have your enquiry down for implants. Is that right?'],['p','Sandeep · WhatsApp','Yes, that’s right'],['b','Assistant · WhatsApp','How soon are you looking to start?'],['p','Sandeep · WhatsApp','Just exploring'],['p','Sandeep · WhatsApp','One missing tooth']]},
+ {id:8,name:'Meera Iyer',phone:'+91 93•••• ••251',treatment:'Whitening',clinic:'Koramangala',urgency:'exploring',status:'assistant',source:'Website form',
+  statusText:'Call booked · tomorrow, 11 AM–1 PM',mins:130,
+  summary:'Enquired late last night and chose “call me tomorrow” with an 11 AM–1 PM window. The assistant will call then and remind her 30 minutes before.',
+  facts:{'How soon':'Not asked yet','Visit':'Not asked yet','Budget':'Not asked yet','Prefers':'Tomorrow 11 AM–1 PM'},
+  next:'No action needed. It returns to you only if the call isn’t answered.',
+  tr:[['b','Assistant · WhatsApp','Our clinics are closed now, but I can still help. How would you like to continue?'],['p','Meera · WhatsApp','Call me tomorrow'],['p','Meera · WhatsApp','11 AM – 1 PM'],['b','Assistant · WhatsApp','Done. We’ll call you tomorrow between 11 AM – 1 PM.']]},
+ {id:9,name:'Divya Menon',phone:'+91 92•••• ••664',treatment:'Whitening',clinic:'Koramangala',urgency:'exploring',status:'assistant',source:'WhatsApp',
+  statusText:'New enquiry from the WhatsApp menu',mins:11,
+  summary:'Existing patient with a braces appointment. She raised a new whitening enquiry from the WhatsApp menu, so she didn’t need the website form. Chatting with the assistant now.',
+  facts:{'How soon':'Just exploring','Visit':'Visited before','Budget':'Pending','Prefers':'Pending'},
+  next:'No action needed. Check her braces appointment if she asks to combine visits.',
+  tr:[['p','Divya · WhatsApp','☰ Menu → Raise a new enquiry'],['b','Assistant · WhatsApp','Which treatment are you interested in?'],['p','Divya · WhatsApp','Whitening'],['b','Assistant · WhatsApp','I’ve logged a new enquiry on your number. No need to fill the website form again.']]},
+ {id:10,name:'Aarav Nair',phone:'+91 91•••• ••402',treatment:'Braces',clinic:'Whitefield',urgency:'soon',status:'booked',source:'Website form',
+  mins:0,appt:{off:1,time:'5:30 PM',clinic:'Whitefield'},
+  summary:'Booked via WhatsApp chat and confirmed by the front desk. Wants braces for crowded teeth; first visit.',
+  facts:{'How soon':'Within 2 weeks','Visit':'First visit','Budget':'₹30,000–60,000','Prefers':'Weekday evening'},
+  next:'',tr:[['b','Assistant · WhatsApp','Pencilled in. Our front desk will confirm shortly.'],['c','','Confirmed by front desk · WhatsApp confirmation sent']]},
+ {id:11,name:'Sneha Reddy',phone:'+91 90•••• ••175',treatment:'Whitening',clinic:'Indiranagar',urgency:'exploring',status:'booked',source:'Website form',
+  mins:0,appt:{off:wk[2],time:'10:30 AM',clinic:'Indiranagar'},
+  summary:'Booked after a call with the assistant. Whitening for an upcoming event. Visited before.',
+  facts:{'How soon':'Within 2 weeks','Visit':'Visited before','Budget':'₹8,000–15,000','Prefers':'Weekday daytime'},
+  next:'',tr:[['c','','Call · 2 min 55 sec'],['b','Assistant · call','Booked. Our front desk will confirm shortly.'],['c','','Confirmed by front desk · WhatsApp confirmation sent']]},
+ {id:12,name:'Imran Sheikh',phone:'+91 89•••• ••538',treatment:'Implants',clinic:'Koramangala',urgency:'soon',status:'booked',source:'Phone call',
+  mins:0,appt:{off:wk[3]+1,time:'4:00 PM',clinic:'Koramangala'},notes:'Prefers a call, not WhatsApp. Bring earlier X-rays.',
+  summary:'Rang the clinic directly. Booked by the front desk for an implant consultation. Has earlier X-rays.',
+  facts:{'How soon':'Within 2 weeks','Visit':'Visited before','Budget':'Not recorded','Prefers':'Late afternoon'},
+  next:'',tr:[['c','','Added by front desk · Phone call'],['c','','Front desk booked the appointment']]}
+  ];
+}
+
+let leads=[], sel=null, tab='all', seq=100;
+const F={q:'',clinic:'all',treat:'all',urg:'all',src:'all',appt:'all',date:'all',over:false};
+const staffNeeded=l=>['human','unreached','confirm'].includes(l.status);
+const minsOf=l=>Math.floor((Date.now()-l.since)/60000);
+const ago=l=>{const m=minsOf(l);return m<60?m+'m':Math.floor(m/60)+'h '+(m%60)+'m';};
+const level=l=>{if(!staffNeeded(l))return 'ok';const m=minsOf(l);return m>=30?'red':m>=15?'amber':'ok';};
+const rank=l=>l.status==='human'&&l.urgency==='urgent'?0:staffNeeded(l)?1:2;
+const first=l=>l.name.split(' ')[0];
+function tsOf(a){const m=/(\d+):(\d+) (AM|PM)/.exec(a.time);const h=(+m[1]%12)+(m[3]==='PM'?12:0);return dateOff(a.off).getTime()+(h*60+(+m[2]))*60000;}
+const apptState=l=>!l.appt?'none':l.status==='confirm'?'pending':'confirmed';
+const stText=l=>l.status==='booked'?'Confirmed · '+apptText(l.appt)+' · '+l.appt.clinic:l.status==='confirm'?'Slot held · '+apptText(l.appt)+' · '+l.appt.clinic:l.statusText;
+const LABEL={human:'Needs a call',unreached:'Not reached',confirm:'Confirm slot',assistant:'With assistant',booked:'Booked'};
+const TABS=[['all','All open'],['call','Needs a call'],['confirm','Confirm slots'],['assistant','With assistant'],['booked','Booked']];
+const inTab=(l,k)=>k==='all'?l.status!=='booked':k==='call'?(l.status==='human'||l.status==='unreached'):k==='booked'?l.status==='booked':l.status===k;
+
+function resetLeads(){
+  leads=seed().map(l=>({...l,since:Date.now()-l.mins*60000}));
+  sel=null; tab='all'; seq=100;
+}
+function passes(l){
+  const t=F.q.trim().toLowerCase();
+  if(t && !(l.name+' '+l.phone+' '+l.treatment).toLowerCase().includes(t)) return false;
+  if(F.clinic!=='all' && l.clinic!==F.clinic) return false;
+  if(F.treat!=='all' && l.treatment!==F.treat) return false;
+  if(F.urg!=='all' && l.urgency!==F.urg) return false;
+  if(F.src!=='all' && l.source!==F.src) return false;
+  if(F.appt!=='all' && apptState(l)!==F.appt) return false;
+  if(F.date!=='all'){
+    if(!l.appt) return false;
+    const o=l.appt.off;
+    if(F.date==='today'&&o!==0) return false;
+    if(F.date==='tomorrow'&&o!==1) return false;
+    if(F.date==='week'&&o>7) return false;
+  }
+  if(F.over && !(staffNeeded(l)&&minsOf(l)>=30)) return false;
+  return true;
+}
+function visible(){
+  return leads.filter(l=>passes(l)&&inTab(l,tab)).sort((a,b)=>{
+    if(tab==='booked') return tsOf(a.appt)-tsOf(b.appt);
+    const ra=rank(a),rb=rank(b);
+    if(ra!==rb) return ra-rb;
+    return ra===2?minsOf(a)-minsOf(b):minsOf(b)-minsOf(a);
+  });
+}
+
+/* ----- toolbar (built once) ----- */
+function fillSel(id,vals,map){ const s=$(id); vals.forEach(v=>{const o=document.createElement('option');o.value=Array.isArray(v)?v[0]:v;o.textContent=Array.isArray(v)?v[1]:v;s.appendChild(o);}); }
+fillSel('#fclinic',CLINICS); fillSel('#ftreat',TR2);
+fillSel('#furg',Object.entries(URG)); fillSel('#fsrc',SRC);
+const bindF=(id,key,ev='change',get=e=>e.target.value)=>$(id).addEventListener(ev,e=>{F[key]=get(e);sel=null;renderAll();});
+bindF('#fq','q','input'); bindF('#fclinic','clinic'); bindF('#ftreat','treat'); bindF('#furg','urg');
+bindF('#fsrc','src'); bindF('#fappt','appt'); bindF('#fdate','date'); bindF('#fover','over','change',e=>e.target.checked);
+$('#fclear').onclick=()=>{
+  Object.assign(F,{q:'',clinic:'all',treat:'all',urg:'all',src:'all',appt:'all',date:'all',over:false});
+  $('#fq').value=''; ['#fclinic','#ftreat','#furg','#fsrc','#fappt','#fdate'].forEach(i=>$(i).value='all'); $('#fover').checked=false;
+  sel=null; renderAll();
+};
+
+function renderTabs(){
+  const base=leads.filter(passes);
+  $('#filters').innerHTML=TABS.map(([k,n])=>'<button class="t'+(tab===k?' on':'')+'" data-t="'+k+'">'+n+'<span>'+base.filter(l=>inTab(l,k)).length+'</span></button>').join('');
+  $$('#filters .t').forEach(b=>b.onclick=()=>{ tab=b.dataset.t; sel=null; renderAll(); });
+}
+function renderList(){
+  const v=visible();
+  if(!v.length){ $('#list').innerHTML='<div class="empty">Nothing matches these filters.</div>'; return; }
+  if(!sel||!v.find(l=>l.id===sel)) sel=v[0].id;
+  $('#list').innerHTML=v.map(l=>{
+    const lv=level(l);
+    const tm=l.status==='booked'?'<b>'+dayLabel(l.appt.off)+'</b><br>'+l.appt.time
+      :staffNeeded(l)?'waiting '+ago(l):'enquired '+ago(l)+' ago';
+    return '<div class="lead lv-'+lv+(l.id===sel?' sel':'')+'" data-id="'+l.id+'">'+
+      '<div class="ini">'+esc(l.name[0]||'?')+'</div>'+
+      '<div class="mid"><div class="nm">'+esc(l.name)+(l.urgency==='urgent'?' <span class="chip c-urgent">Urgent</span>':'')+'</div>'+
+      '<div class="sub">'+esc(l.treatment)+' · '+esc(l.clinic)+' · '+esc(l.source)+'</div>'+
+      '<div class="st"><span class="chip c-'+l.status+'">'+LABEL[l.status]+'</span> '+esc(stText(l))+'</div></div>'+
+      '<div class="tm '+lv+'">'+tm+'</div></div>';
+  }).join('');
+  $$('#list .lead').forEach(e=>e.onclick=()=>{ sel=+e.dataset.id; renderList(); renderDetail(); });
+}
+function renderDetail(){
+  const l=leads.find(x=>x.id===sel);
+  if(!l||!visible().find(x=>x.id===l.id)){ $('#detail').innerHTML='<div class="empty">Select someone on the left.</div>'; return; }
+  const B=(a,t,c='')=>'<button class="btn '+c+'" data-a="'+a+'">'+t+'</button>';
+  let acts='',top='';
+  if(l.appt){
+    const ok=l.status==='booked';
+    top='<div class="appt'+(ok?' ok':'')+'"><small>Appointment · '+(ok?'Confirmed':'Held, awaiting your confirmation')+'</small><b>'+dayLabel(l.appt.off)+' · '+dayFull(l.appt.off)+' · '+l.appt.time+'</b><div>'+esc(l.appt.clinic)+' clinic · '+esc(l.treatment)+'</div></div>';
+  }else top='<div class="next"><small>Suggested next step</small>'+esc(l.next)+'</div>';
+  if(l.status==='human'||l.status==='unreached') acts=B('call','Call '+esc(first(l)),'pri')+B('book','Book appointment')+B('edit','Edit details')+B('resolve','Mark resolved');
+  else if(l.status==='confirm') acts=B('confirm','Confirm slot','pri')+B('resched','Change time')+B('edit','Edit details');
+  else if(l.status==='assistant') acts=B('takeover','Take over from assistant','pri')+B('book','Book appointment')+B('edit','Edit details');
+  else acts=B('resched','Reschedule','pri')+B('cancel','Cancel appointment','danger')+B('attended','Mark attended')+B('edit','Edit details');
+  $('#detail').innerHTML='<div class="detail">'+
+    '<h2>'+esc(l.name)+(l.urgency==='urgent'?' <span class="chip c-urgent">Urgent</span>':'')+'</h2>'+
+    '<div class="meta">'+esc(l.treatment)+' · '+esc(l.clinic)+' · '+esc(l.phone)+' · via '+esc(l.source)+'</div>'+
+    top+'<div class="acts">'+acts+'</div>'+
+    (l.notes?'<div class="sec">Front-desk notes</div><div class="notes">'+esc(l.notes)+'</div>':'')+
+    '<div class="sec">What the assistant learned</div><p style="margin:0 0 10px">'+esc(l.summary)+'</p>'+
+    '<div class="facts">'+Object.entries(l.facts).map(([k,v])=>'<div><small>'+k+'</small>'+esc(v)+'</div>').join('')+'</div>'+
+    '<div class="sec">Conversation &amp; history</div><div class="tr">'+
+    l.tr.map(([k,who,txt])=>k==='c'?'<div class="c">'+esc(txt)+'</div>':'<div class="'+(k==='p'?'p':'')+'"><small>'+esc(who)+'</small>'+esc(txt)+'</div>').join('')+
+    '</div></div>';
+  $$('#detail [data-a]').forEach(b=>b.onclick=()=>act(b.dataset.a,l));
+}
+function renderAll(){ renderTabs(); renderList(); renderDetail(); }
+
+/* ----- modals ----- */
+function modal(html){ $('#modalBody').innerHTML=html; $('#modal').classList.add('on'); }
+function closeModal(){ $('#modal').classList.remove('on'); $('#modalBody').innerHTML=''; }
+$('#modal').onclick=e=>{ if(e.target.id==='modal') closeModal(); };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+const opts=(arr,val)=>arr.map(v=>{const[a,b]=Array.isArray(v)?v:[v,v];return '<option value="'+esc(a)+'"'+(a===val?' selected':'')+'>'+esc(b)+'</option>';}).join('');
+
+function isTaken(clinic,off,t,self){
+  if(leads.some(x=>x!==self&&x.appt&&x.appt.clinic===clinic&&x.appt.off===off&&x.appt.time===t)) return true;
+  return hash(clinic+'|'+off+'|'+t)%4===0;
+}
+function bookModal(l,mode){
+  const cur=l.appt;
+  const st={clinic:(cur&&cur.clinic)||l.clinic,off:cur?cur.off:1,time:null,notify:true,notes:''};
+  const paint=()=>{
+    const slots=TIMES.map(t=>{const own=cur&&cur.clinic===st.clinic&&cur.off===st.off&&cur.time===t;return{t,free:own||!isTaken(st.clinic,st.off,t,l)};});
+    const days=[0,1,2,3,4,5,6,7,8,9].map(o=>[String(o),dayLabel(o)+(o<2?' · '+dayFull(o):'')]);
+    modal('<h3>'+(mode==='resched'?'Reschedule appointment':'Book appointment')+' · '+esc(l.name)+'</h3>'+
+      (cur?'<p class="mnote">Current: '+apptText(cur)+' · '+esc(cur.clinic)+'</p>':'<p class="mnote">'+esc(l.treatment)+' consultation</p>')+
+      '<div class="mrow"><div><label>Clinic</label><select id="bk_c">'+opts(CLINICS,st.clinic)+'</select></div>'+
+      '<div><label>Date</label><select id="bk_d">'+opts(days,String(st.off))+'</select></div></div>'+
+      '<label>Available times</label><div class="slots">'+slots.map(s=>'<button data-t="'+s.t+'"'+(s.free?'':' disabled')+(st.time===s.t?' class="on"':'')+'>'+s.t+'</button>').join('')+'</div>'+
+      '<label>Note for the clinic (optional)</label><textarea id="bk_n">'+esc(st.notes)+'</textarea>'+
+      '<label class="chk"><input type="checkbox" id="bk_w"'+(st.notify?' checked':'')+'> Send WhatsApp confirmation to '+esc(first(l))+'</label>'+
+      '<div class="mact"><button class="btn" id="m_x">Cancel</button><button class="btn pri" id="m_ok"'+(st.time?'':' disabled')+'>'+(mode==='resched'?'Save new time':'Book appointment')+'</button></div>');
+    $('#bk_c').onchange=e=>{st.clinic=e.target.value;st.time=null;paint();};
+    $('#bk_d').onchange=e=>{st.off=+e.target.value;st.time=null;paint();};
+    $('#bk_n').oninput=e=>{st.notes=e.target.value;};
+    $('#bk_w').onchange=e=>{st.notify=e.target.checked;};
+    $$('.slots button').forEach(b=>b.onclick=()=>{st.time=b.dataset.t;paint();});
+    $('#m_x').onclick=closeModal;
+    $('#m_ok').onclick=()=>{
+      const a={off:st.off,time:st.time,clinic:st.clinic};
+      const prev=cur?apptText(cur)+' at '+cur.clinic:null;
+      l.appt=a; l.clinic=a.clinic; l.status='booked';
+      if(st.notes.trim()) l.notes=(l.notes?l.notes+'\n':'')+st.notes.trim();
+      l.tr.push(['c','',mode==='resched'&&prev?'Front desk rescheduled: '+prev+' → '+apptText(a)+' at '+a.clinic+(st.notify?' · WhatsApp sent':''):'Front desk booked '+apptText(a)+' at '+a.clinic+(st.notify?' · WhatsApp confirmation sent':'')]);
+      closeModal(); tab='booked'; sel=l.id; renderAll();
+      toast((mode==='resched'?'Rescheduled':'Booked')+' · '+apptText(a)+' · '+a.clinic+(st.notify?' · '+first(l)+' notified on WhatsApp':''));
+    };
+  };
+  paint();
+}
+function editModal(l){
+  modal('<h3>Edit details · '+esc(l.name)+'</h3>'+
+    '<label>Full name</label><input type="text" id="e_n" value="'+esc(l.name)+'">'+
+    '<label>Phone</label><input type="tel" id="e_p" value="'+esc(l.phone)+'">'+
+    '<div class="mrow"><div><label>Treatment</label><select id="e_t">'+opts(TR2,l.treatment)+'</select></div>'+
+    '<div><label>Preferred clinic</label><select id="e_c">'+opts(CLINICS,l.clinic)+'</select></div></div>'+
+    '<div class="mrow"><div><label>Urgency</label><select id="e_u">'+opts(Object.entries(URG),l.urgency)+'</select></div>'+
+    '<div><label>Source</label><select id="e_s">'+opts(SRC,l.source)+'</select></div></div>'+
+    '<label>Front-desk notes</label><textarea id="e_x">'+esc(l.notes||'')+'</textarea>'+
+    '<div class="mact"><button class="btn" id="m_x">Cancel</button><button class="btn pri" id="m_ok">Save changes</button></div>');
+  $('#m_x').onclick=closeModal;
+  $('#m_ok').onclick=()=>{
+    const name=$('#e_n').value.trim();
+    if(!name){ $('#e_n').focus(); return; }
+    const before=l.treatment+'|'+l.clinic;
+    l.name=name; l.phone=$('#e_p').value.trim()||l.phone; l.treatment=$('#e_t').value; l.clinic=$('#e_c').value;
+    l.urgency=$('#e_u').value; l.source=$('#e_s').value; l.notes=$('#e_x').value.trim();
+    if(l.appt && !(l.status==='booked'&&false)) { /* appointment clinic stays as booked; change it with Reschedule */ }
+    l.tr.push(['c','','Details edited by front desk']);
+    closeModal(); renderAll(); toast('Details updated');
+  };
+}
+function newModal(){
+  modal('<h3>New enquiry / booking</h3><p class="mnote">For a phone call or walk-in. It appears in the queue like any other lead.</p>'+
+    '<label>Full name</label><input type="text" id="n_n" placeholder="e.g. Rohit Bansal">'+
+    '<label>Phone</label><input type="tel" id="n_p" placeholder="+91 …">'+
+    '<div class="mrow"><div><label>Treatment</label><select id="n_t">'+opts(TR2,'Braces')+'</select></div>'+
+    '<div><label>Preferred clinic</label><select id="n_c">'+opts(CLINICS,'Indiranagar')+'</select></div></div>'+
+    '<div class="mrow"><div><label>Urgency</label><select id="n_u">'+opts(Object.entries(URG),'soon')+'</select></div>'+
+    '<div><label>Source</label><select id="n_s">'+opts(SRC,'Phone call')+'</select></div></div>'+
+    '<label>Notes</label><textarea id="n_x"></textarea>'+
+    '<label class="chk"><input type="checkbox" id="n_b" checked> Book an appointment now</label>'+
+    '<div class="mact"><button class="btn" id="m_x">Cancel</button><button class="btn pri" id="m_ok">Create</button></div>');
+  $('#m_x').onclick=closeModal;
+  $('#m_ok').onclick=()=>{
+    const name=$('#n_n').value.trim(), phone=$('#n_p').value.trim();
+    if(!name){ $('#n_n').focus(); return; }
+    if(!phone){ $('#n_p').focus(); return; }
+    const src=$('#n_s').value, urg=$('#n_u').value;
+    const l={id:++seq,name,phone,treatment:$('#n_t').value,clinic:$('#n_c').value,urgency:urg,status:'human',source:src,
+      statusText:'Added by front desk · '+src,mins:0,since:Date.now(),notes:$('#n_x').value.trim(),
+      summary:'Added manually by the front desk after a '+src.toLowerCase()+'. The assistant has not spoken to this patient.',
+      facts:{'How soon':URG[urg],'Visit':'Not recorded','Budget':'Not recorded','Prefers':'Not recorded'},
+      next:'Book an appointment or follow up with the patient.',tr:[['c','','Added by front desk · '+src]]};
+    leads.push(l);
+    const book=$('#n_b').checked;
+    closeModal(); tab='all'; sel=l.id; renderAll();
+    if(book) bookModal(l,'book'); else toast(name+' added to the queue');
+  };
+}
+function cancelModal(l){
+  modal('<h3>Cancel appointment?</h3><p>'+esc(first(l))+'’s appointment on <b>'+apptText(l.appt)+'</b> at '+esc(l.appt.clinic)+' will be cancelled. They’ll be told on WhatsApp and offered new times.</p>'+
+    '<div class="mact"><button class="btn" id="m_x">Keep appointment</button><button class="btn pri danger" id="m_ok" style="background:#b91c1c;color:#fff;border-color:#b91c1c">Cancel appointment</button></div>');
+  $('#m_x').onclick=closeModal;
+  $('#m_ok').onclick=()=>{
+    const was=apptText(l.appt)+' at '+l.appt.clinic;
+    l.appt=null; l.status='human'; l.statusText='Appointment cancelled · offer a new time'; l.since=Date.now();
+    l.next='The patient was told on WhatsApp. Call to offer a new time, or book one for them.';
+    l.tr.push(['c','','Front desk cancelled: '+was+' · patient notified on WhatsApp']);
+    closeModal(); tab='all'; sel=l.id; renderAll(); toast('Appointment cancelled. '+first(l)+' is back in “Needs a call”');
+  };
+}
+
+function act(a,l){
+  if(a==='call'){ toast('Dialling '+first(l)+'… call will be logged on the lead'); return; }
+  if(a==='book') return bookModal(l,'book');
+  if(a==='resched') return bookModal(l,'resched');
+  if(a==='edit') return editModal(l);
+  if(a==='cancel') return cancelModal(l);
+  if(a==='resolve'){ leads=leads.filter(x=>x!==l); sel=null; toast('Marked resolved'); }
+  if(a==='attended'){ leads=leads.filter(x=>x!==l); sel=null; toast(first(l)+' marked as attended · moved to history'); }
+  if(a==='confirm'){ l.status='booked'; l.tr.push(['c','','Confirmed by front desk · WhatsApp confirmation sent']); tab='booked'; toast('Confirmed. '+first(l)+' has been sent a WhatsApp confirmation'); }
+  if(a==='takeover'){ l.status='human'; l.statusText='Taken over by front desk'; l.since=Date.now(); l.next='You’re in charge now. The assistant has paused and won’t message '+first(l)+'.'; toast('You’ve taken over. Assistant paused'); }
+  renderAll();
+}
+
+$('#newBtn').onclick=newModal;
+$('#resetQ').onclick=()=>{ resetLeads(); $('#fclear').click(); toast('Demo data reset'); };
+
+let tt;
+function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('on'),3200); }
+setInterval(()=>{ if($('#screen2').classList.contains('on')&&!$('#modal').classList.contains('on')){ renderTabs(); renderList(); } },30000);
+
+/* ---------- boot ---------- */
+resetLeads();
+renderScenCard();
+start();
+</script>
+</body>
+</html>
